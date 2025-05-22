@@ -1,22 +1,16 @@
+// @ts-check
+
 import eslint from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
 import eslintPluginAstro from "eslint-plugin-astro";
-import { defineConfig, globalIgnores } from "eslint/config";
+import { globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-export default defineConfig([
+export default tseslint.config(
 	globalIgnores([".astro/"]),
 	eslint.configs.recommended,
-	tseslint.configs.strictTypeChecked,
-	tseslint.configs.stylisticTypeChecked,
-	{
-		languageOptions: {
-			parserOptions: {
-				projectService: true,
-				tsconfigRootDir: import.meta.dirname,
-			},
-		},
-	},
+	tseslint.configs.strict,
+	tseslint.configs.stylistic,
 	eslintPluginAstro.configs.recommended,
 	eslintConfigPrettier,
-]);
+);
